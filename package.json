@@ -1,7 +1,7 @@
 {
   "name": "orca",
   "version": "1.0.0",
-  "description": "ORCA \u2014 See what smart money sees.",
+  "description": "ORCA — See what smart money sees.",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,15 +12,16 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.0",
+    "clsx": "^2.1.1",
     "d3": "^7.9.0",
+    "date-fns": "^3.6.0",
     "next": "14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "recharts": "^2.12.7",
+    "ws": "^8.20.1",
     "zod": "^3.23.8",
-    "zustand": "^4.5.2",
-    "date-fns": "^3.6.0",
-    "clsx": "^2.1.1"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
