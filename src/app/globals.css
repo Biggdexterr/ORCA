@@ -1,0 +1,389 @@
+/* ============================================================
+   ORCA — Global Styles & Design System
+   Geological brutalism: stone, rust, obsidian
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Dark Theme (default) ─────────────────────────────────── */
+:root,
+:root.theme-dark {
+  --bg-base:          #0D0A07;
+  --bg-surface:       #161009;
+  --bg-elevated:      #1F1610;
+  --bg-overlay:       #2A1E13;
+
+  --border-default:   #3D2E1E;
+  --border-strong:    #6B4226;
+  --border-accent:    #C4621A;
+
+  --text-primary:     #E8D5B0;
+  --text-secondary:   #A08060;
+  --text-muted:       #5C4433;
+  --text-inverse:     #0D0A07;
+
+  --accent-primary:   #C4621A;
+  --accent-secondary: #8B5E3C;
+  --accent-glow:      #D4783A;
+
+  --signal-bull:      #C8A84B;
+  --signal-bear:      #CC2936;
+  --signal-watch:     #B5651D;
+  --signal-alert:     #E8A020;
+
+  --accent-critical:  #F0C040;
+
+  /* Noise texture for dark mode */
+  --noise-opacity: 0.04;
+  --texture-pattern: none;
+}
+
+/* ─── Light Theme ───────────────────────────────────────────── */
+:root.theme-light {
+  --bg-base:          #F2EBE0;
+  --bg-surface:       #E8DDD0;
+  --bg-elevated:      #DDD0C0;
+  --bg-overlay:       #D4C4B0;
+
+  --border-default:   #B09070;
+  --border-strong:    #8B6A4A;
+  --border-accent:    #C4621A;
+
+  --text-primary:     #1A1008;
+  --text-secondary:   #4A3322;
+  --text-muted:       #8B7055;
+  --text-inverse:     #F2EBE0;
+
+  --accent-primary:   #A84E10;
+  --accent-secondary: #6B4226;
+  --accent-glow:      #C4621A;
+
+  --signal-bull:      #8B6914;
+  --signal-bear:      #A01020;
+  --signal-watch:     #8B4513;
+  --signal-alert:     #C07010;
+
+  --accent-critical:  #B8860B;
+
+  --noise-opacity: 0;
+  --texture-pattern: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(139, 106, 74, 0.03) 10px,
+    rgba(139, 106, 74, 0.03) 20px
+  );
+}
+
+/* ─── Base Resets ──────────────────────────────────────────── */
+* {
+  border-radius: 0 !important; /* Enforce brutalist no-radius */
+  box-sizing: border-box;
+}
+
+html {
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  background-image: var(--texture-pattern);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* SVG noise overlay for dark mode */
+.theme-dark body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: var(--noise-opacity);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Typography ───────────────────────────────────────────── */
+.font-display { font-family: 'Bebas Neue', cursive; }
+.font-mono    { font-family: 'IBM Plex Mono', monospace; }
+.font-body    { font-family: 'Barlow Condensed', sans-serif; }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* ─── Angular Card (clip-path corners) ─────────────────────── */
+.card-angular {
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.card-angular:hover {
+  border-color: var(--border-accent);
+  box-shadow: 4px 4px 0px var(--accent-primary);
+}
+
+/* ─── Section Header ────────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.section-header::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 1.2em;
+  background: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+/* ─── Parallelogram Button ──────────────────────────────────── */
+.btn-angular {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 0.15em;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transform: skewX(-4deg);
+  transition: background 150ms ease, box-shadow 150ms ease;
+  position: relative;
+}
+
+.btn-angular:hover {
+  background: var(--accent-glow);
+  box-shadow: 3px 3px 0px var(--accent-secondary);
+}
+
+.btn-angular span {
+  display: inline-block;
+  transform: skewX(4deg);
+}
+
+.btn-angular-outline {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+.btn-angular-outline:hover {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+}
+
+/* ─── Verdict Pills / Angled Tags ───────────────────────────── */
+.verdict-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.verdict-buy  { background: var(--signal-bull);  color: #000; }
+.verdict-avoid { background: var(--signal-bear); color: #fff; }
+.verdict-watch { background: var(--signal-watch); color: #fff; }
+
+/* ─── Score Badge ──────────────────────────────────────────── */
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid;
+  clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
+}
+
+.score-high  { border-color: var(--signal-bull);  color: var(--signal-bull); }
+.score-mid   { border-color: var(--signal-watch); color: var(--signal-watch); }
+.score-low   { border-color: var(--signal-bear);  color: var(--signal-bear); }
+
+/* ─── Table Rows ────────────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border-default);
+}
+
+.data-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-default);
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--text-primary);
+  transition: background 120ms ease;
+}
+
+.data-table tr:hover td {
+  background: var(--bg-overlay);
+}
+
+.data-table tr:hover td:first-child {
+  border-left: 3px solid var(--accent-primary);
+}
+
+/* ─── Live Pulse Dot ────────────────────────────────────────── */
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--signal-bull);
+  animation: pulse-ring 2s infinite;
+}
+
+.dead-dot {
+  background: var(--signal-bear);
+  animation: none;
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(200, 168, 75, 0.4); }
+  70%  { box-shadow: 0 0 0 6px rgba(200, 168, 75, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(200, 168, 75, 0); }
+}
+
+/* ─── Critical Number Glow (dark mode only) ─────────────────── */
+.theme-dark .critical-glow {
+  text-shadow: 0 0 20px var(--accent-critical);
+  color: var(--accent-critical);
+}
+
+/* ─── Scrollbars ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes newRow {
+  from { background: var(--bg-overlay); }
+  to   { background: transparent; }
+}
+
+.animate-slide-in-right { animation: slideInRight 300ms ease; }
+.animate-slide-in-left  { animation: slideInLeft 300ms ease; }
+.animate-fade-in-up     { animation: fadeInUp 400ms ease; }
+.animate-new-row        { animation: newRow 1500ms ease; }
+
+/* ─── Diamond node for graph ────────────────────────────────── */
+.graph-tooltip {
+  position: absolute;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-accent);
+  padding: 10px 14px;
+  pointer-events: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+  box-shadow: 4px 4px 0px var(--accent-primary);
+  max-width: 220px;
+  z-index: 1000;
+}
+
+/* ─── Sidebar active state ──────────────────────────────────── */
+.nav-item-active {
+  background: var(--bg-overlay);
+  border-left: 3px solid var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* ─── Stats bar gradient divider ────────────────────────────── */
+.stats-divider {
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(180deg, transparent, var(--border-strong), transparent);
+  transform: skewX(-4deg);
+}
+
+/* ─── Metric bar ────────────────────────────────────────────── */
+.metric-bar-track {
+  height: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  transition: width 600ms ease;
+}
+
+/* ─── Drawer overlay ────────────────────────────────────────── */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 10, 7, 0.75);
+  z-index: 40;
+}
+
+.drawer-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(540px, 100vw);
+  background: var(--bg-elevated);
+  border-left: 2px solid var(--border-accent);
+  overflow-y: auto;
+  z-index: 50;
+  animation: slideInRight 300ms ease;
+}
