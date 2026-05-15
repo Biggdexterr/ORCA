@@ -150,7 +150,7 @@ export async function GET(req: NextRequest) {
           tokensScanned24h: allTokens.length,
           buySignals24h: buySignals,
           whaleMoves24h: topGainers.length,
-          kolApes24h: finalMeme.filter(t => (t.uniqueWallets24h || 0) > 500).length,
+          kolApes24h: finalMeme.filter((t: any) => (t.uniqueWallets24h || 0) > 500).length,
           aiAccuracyRate: 72.8,
           activeWhales: 8,
           topMemeTokens: finalMeme.slice(0, 8),
