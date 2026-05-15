@@ -62,5 +62,3 @@ export async function GET(req: NextRequest) {
   });
 }
 
-// Export broadcast for use by other API routes
-export { broadcast };
