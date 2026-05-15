@@ -13,7 +13,7 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import { generateMockTokens, generateMockAlerts, generateMockDashboardStats } from '../src/lib/mockData';
 
-const PORT = process.env.WS_PORT ? parseInt(process.env.WS_PORT) : 3001;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3001;
 
 const wss = new WebSocketServer({ port: PORT });
 
